@@ -455,7 +455,7 @@ const EVENT = {
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── Populate page from EVENT config ──────────────────────────────────────────
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('hdr-event').textContent = EVENT.name + ' Permission Form';
   document.getElementById('deadline-banner').innerHTML =
     `Please sign and return this form on or before <strong>${EVENT.deadline}</strong>`;
@@ -491,7 +491,7 @@ const EVENT = {
   const today = new Date();
   document.getElementById('sign-date').value =
     today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-})();
+});
 
 
 // ── Signature Pad ─────────────────────────────────────────────────────────────
