@@ -6,589 +6,241 @@
 <title>TAGYOLO Permission Slip</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  /* ── PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ── */
-  /* See SETUP INSTRUCTIONS below */
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --navy: #1a2744;
-    --gold: #c8972a;
-    --gold-light: #f0c85a;
-    --cream: #fdf8f0;
-    --red: #c0392b;
-    --gray: #6b7280;
-    --border: #ddd0b8;
-    --radius: 10px;
-  }
-
-  body {
-    font-family: 'Source Sans 3', sans-serif;
-    background: var(--cream);
-    color: #1a1a1a;
-    min-height: 100vh;
-    padding: 0 0 60px;
-  }
-
-  /* ── HEADER ── */
-  header {
-    background: var(--navy);
-    color: white;
-    text-align: center;
-    padding: 28px 20px 22px;
-    border-bottom: 4px solid var(--gold);
-  }
-
-  header .org {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.55rem;
-    letter-spacing: 0.02em;
-    color: var(--gold-light);
-  }
-
-  header .event-title {
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin-top: 6px;
-    color: white;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  header .event-subtitle {
-    font-size: 0.88rem;
-    margin-top: 4px;
-    color: #aab4cc;
-  }
-
-  /* ── INFO CARD (keep this part) ── */
-  .info-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-left: 5px solid var(--navy);
-    margin: 24px 16px 0;
-    border-radius: var(--radius);
-    padding: 18px 18px 16px;
-  }
-
-  .info-card h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    color: var(--navy);
-    margin-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 8px;
-  }
-
-  .info-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 7px;
-    font-size: 0.92rem;
-    align-items: flex-start;
-  }
-
-  .info-label {
-    font-weight: 600;
-    color: var(--navy);
-    min-width: 110px;
-    flex-shrink: 0;
-  }
-
+  :root { --navy: #1a2744; --gold: #c8972a; --gold-light: #f0c85a; --cream: #fdf8f0; --red: #c0392b; --gray: #6b7280; --border: #ddd0b8; --radius: 10px; }
+  body { font-family: 'Source Sans 3', sans-serif; background: var(--cream); color: #1a1a1a; min-height: 100vh; padding: 0 0 60px; }
+  header { background: var(--navy); color: white; text-align: center; padding: 28px 20px 22px; border-bottom: 4px solid var(--gold); }
+  header .org { font-family: 'Playfair Display', serif; font-size: 1.55rem; letter-spacing: 0.02em; color: var(--gold-light); }
+  header .event-title { font-size: 1.15rem; font-weight: 600; margin-top: 6px; color: white; letter-spacing: 0.04em; text-transform: uppercase; }
+  header .event-subtitle { font-size: 0.88rem; margin-top: 4px; color: #aab4cc; }
+  .info-card { background: white; border: 1px solid var(--border); border-left: 5px solid var(--navy); margin: 24px 16px 0; border-radius: var(--radius); padding: 18px 18px 16px; }
+  .info-card h2 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--navy); margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  .info-row { display: flex; gap: 8px; margin-bottom: 7px; font-size: 0.92rem; align-items: flex-start; }
+  .info-label { font-weight: 600; color: var(--navy); min-width: 120px; flex-shrink: 0; }
   .info-value { color: #333; }
-
-  .deadline-banner {
-    background: #fef2f2;
-    border: 1px solid #fca5a5;
-    border-radius: 6px;
-    padding: 10px 14px;
-    margin: 14px 16px 0;
-    font-size: 0.9rem;
-    color: var(--red);
-    font-weight: 600;
-    text-align: center;
-  }
-
-  .save-notice {
-    text-align: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--gray);
-    letter-spacing: 0.08em;
-    margin: 18px 16px 0;
-    text-transform: uppercase;
-  }
-
-  /* ── DIVIDER ── */
-  .cut-line {
-    margin: 18px 16px;
-    border: none;
-    border-top: 2px dashed #b0a090;
-    position: relative;
-  }
-
-  .cut-line::before {
-    content: "✂ PERMISSION SLIP — SUBMIT BELOW";
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--cream);
-    padding: 0 10px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--gray);
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-  }
-
-  /* ── FORM CARD ── */
-  .form-card {
-    background: white;
-    border: 1px solid var(--border);
-    margin: 0 16px;
-    border-radius: var(--radius);
-    padding: 20px 18px;
-  }
-
-  .permission-statement {
-    font-size: 0.93rem;
-    color: #333;
-    margin-bottom: 20px;
-    line-height: 1.55;
-    background: #f9f5ee;
-    border-radius: 6px;
-    padding: 12px 14px;
-    border-left: 3px solid var(--gold);
-  }
-
-  .permission-statement strong { color: var(--navy); }
-
-  /* ── FORM FIELDS ── */
+  .deadline-banner { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 6px; padding: 10px 14px; margin: 14px 16px 0; font-size: 0.9rem; color: var(--red); font-weight: 600; text-align: center; }
+  .save-notice { text-align: center; font-size: 0.8rem; font-weight: 600; color: var(--gray); letter-spacing: 0.08em; margin: 18px 16px 0; text-transform: uppercase; }
+  .cut-line { margin: 18px 16px; border: none; border-top: 2px dashed #b0a090; position: relative; }
+  .cut-line::before { content: "\2702 PERMISSION SLIP \2014 SUBMIT BELOW"; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--cream); padding: 0 10px; font-size: 0.72rem; font-weight: 700; color: var(--gray); letter-spacing: 0.08em; white-space: nowrap; }
+  .form-card { background: white; border: 1px solid var(--border); margin: 0 16px; border-radius: var(--radius); padding: 20px 18px; }
+  .permission-statement { font-size: 0.93rem; color: #333; margin-bottom: 20px; line-height: 1.55; background: #f9f5ee; border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--gold); }
   .field-group { margin-bottom: 18px; }
-
-  label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 6px;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-
+  label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; letter-spacing: 0.02em; text-transform: uppercase; }
   label span.req { color: var(--red); margin-left: 2px; }
-
-  input[type="text"],
-  input[type="tel"],
-  textarea {
-    width: 100%;
-    border: 1.5px solid var(--border);
-    border-radius: 7px;
-    padding: 11px 13px;
-    font-size: 1rem;
-    font-family: 'Source Sans 3', sans-serif;
-    color: #1a1a1a;
-    background: #fafafa;
-    outline: none;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-
-  input:focus, textarea:focus {
-    border-color: var(--navy);
-    background: white;
-  }
-
+  input[type="text"], input[type="tel"], textarea { width: 100%; border: 1.5px solid var(--border); border-radius: 7px; padding: 11px 13px; font-size: 1rem; font-family: 'Source Sans 3', sans-serif; color: #1a1a1a; background: #fafafa; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+  input:focus, textarea:focus { border-color: var(--navy); background: white; }
   textarea { min-height: 80px; resize: vertical; }
-
-  .field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  /* ── SECTION HEADER ── */
-  .section-label {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--gray);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin: 22px 0 12px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  /* ── SIGNATURE PAD ── */
-  .sig-wrap {
-    position: relative;
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    background: #fafafa;
-    overflow: hidden;
-  }
-
-  .sig-wrap canvas {
-    display: block;
-    width: 100%;
-    height: 160px;
-    touch-action: none;
-    cursor: crosshair;
-  }
-
-  .sig-placeholder {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 0.88rem;
-    color: #bbb;
-    pointer-events: none;
-    text-align: center;
-    transition: opacity 0.2s;
-  }
-
-  .sig-placeholder svg {
-    display: block;
-    margin: 0 auto 6px;
-    opacity: 0.4;
-  }
-
-  .sig-baseline {
-    height: 2px;
-    background: var(--border);
-    margin: 0 16px;
-  }
-
-  .sig-actions {
-    display: flex;
-    justify-content: flex-end;
-    padding: 8px 10px;
-  }
-
-  .btn-clear {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    padding: 5px 14px;
-    font-size: 0.8rem;
-    color: var(--gray);
-    cursor: pointer;
-    font-family: inherit;
-  }
-
-  .btn-clear:hover { border-color: var(--red); color: var(--red); }
-
-  /* ── SUBMIT ── */
-  .submit-btn {
-    width: 100%;
-    background: var(--navy);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 16px;
-    font-size: 1.05rem;
-    font-weight: 700;
-    font-family: 'Source Sans 3', sans-serif;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    margin-top: 24px;
-    transition: background 0.2s, transform 0.1s;
-    -webkit-appearance: none;
-  }
-
-  .submit-btn:hover { background: #253566; }
-  .submit-btn:active { transform: scale(0.98); }
+  .section-label { font-size: 0.78rem; font-weight: 700; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; margin: 22px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .sig-wrap { position: relative; border: 2px solid var(--border); border-radius: 8px; background: #fafafa; overflow: hidden; }
+  .sig-wrap canvas { display: block; width: 100%; height: 160px; touch-action: none; cursor: crosshair; }
+  .sig-placeholder { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.88rem; color: #bbb; pointer-events: none; text-align: center; }
+  .sig-baseline { height: 2px; background: var(--border); margin: 0 16px; }
+  .sig-actions { display: flex; justify-content: flex-end; padding: 8px 10px; }
+  .btn-clear { background: none; border: 1px solid var(--border); border-radius: 5px; padding: 5px 14px; font-size: 0.8rem; color: var(--gray); cursor: pointer; font-family: inherit; }
+  .submit-btn { width: 100%; background: var(--navy); color: white; border: none; border-radius: 8px; padding: 16px; font-size: 1.05rem; font-weight: 700; font-family: 'Source Sans 3', sans-serif; letter-spacing: 0.05em; cursor: pointer; margin-top: 24px; -webkit-appearance: none; }
   .submit-btn:disabled { background: #aaa; cursor: not-allowed; }
-
-  /* ── STATUS MESSAGES ── */
-  .status {
-    display: none;
-    margin-top: 16px;
-    padding: 14px 16px;
-    border-radius: 8px;
-    font-size: 0.93rem;
-    font-weight: 600;
-    text-align: center;
-  }
-
+  .status { display: none; margin-top: 16px; padding: 14px 16px; border-radius: 8px; font-size: 0.93rem; font-weight: 600; text-align: center; }
   .status.success { background: #f0fdf4; border: 1px solid #86efac; color: #166534; }
-  .status.error   { background: #fef2f2; border: 1px solid #fca5a5; color: var(--red); }
-
-  /* ── FOOTER ── */
-  footer {
-    text-align: center;
-    font-size: 0.78rem;
-    color: #aaa;
-    margin-top: 28px;
-    padding: 0 16px;
-  }
-
-  @media (max-width: 400px) {
-    .field-row { grid-template-columns: 1fr; }
-    header .org { font-size: 1.3rem; }
-  }
+  .status.error { background: #fef2f2; border: 1px solid #fca5a5; color: var(--red); }
+  footer { text-align: center; font-size: 0.78rem; color: #aaa; margin-top: 28px; padding: 0 16px; }
 </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════════
-     ██  CONFIGURE YOUR EVENT HERE  ██
-     Change these values before each event.
-     Everything on the page updates automatically.
-════════════════════════════════════════════════ -->
-<script>
-const EVENT = {
-  name:             "Lock In 2026",
-  type:             "event",              // "field trip" or "event"
-  date_display:     "Friday, April 10 – Saturday, April 11, 2026",
-  date_short:       "April 10–11, 2026",
-  location:         "Troy Assembly of God",
-  cost:             "FREE",
-  start_time:       "10:00 PM (April 10th)",
-  end_time:         "1:00 AM (April 11th)",
-  departure_from:   null,                 // set to address string or null to hide
-  departure_time:   null,                 // null to hide
-  return_to:        null,                 // null to hide
-  return_time:      null,                 // null to hide
-  transport:        null,                 // null to hide
-  child_needs:      null,                 // null to hide
-  parents_welcome:  true,
-  deadline:         "Wednesday, April 8, 2026",
-
-  // ── APPS SCRIPT URL ──────────────────────────────
-  // Paste your Google Apps Script Web App URL here after deployment:
-  script_url: "https://script.google.com/macros/s/AKfycbzpTMkinek8EAYbBS9D0dukUW2AwrCFvAE90dWckUkSnE5ZfExY9nh1NXxfccF4mG7O/exec"
-};
-</script>
-<!-- ════════════════════════════════════════════════ -->
-
 <header>
   <div class="org">Troy Assembly of God</div>
-  <div class="event-title" id="hdr-event"></div>
+  <div class="event-title" id="hdr-event">Permission Form</div>
   <div class="event-subtitle">Youth Group Permission Form</div>
 </header>
 
-<div class="deadline-banner" id="deadline-banner"></div>
+<div class="deadline-banner" id="deadline-banner">Please sign and return this form before the deadline.</div>
 
-<!-- INFO PANEL (parents keep this) -->
 <div class="info-card">
   <h2>Event Information</h2>
   <div id="info-rows"></div>
 </div>
 
-<p class="save-notice">📄 Save the information above for your records</p>
-
+<p class="save-notice">Save the information above for your records</p>
 <hr class="cut-line">
 
-<!-- PERMISSION SLIP FORM -->
 <div class="form-card">
-  <p class="permission-statement" id="permission-statement"></p>
-
+  <p class="permission-statement" id="permission-statement">My child has my permission to attend this event.</p>
   <form id="perm-form" novalidate>
-
     <div class="field-group">
       <label for="child-name">Child's Full Name <span class="req">*</span></label>
       <input type="text" id="child-name" placeholder="First and Last Name" required>
     </div>
-
     <div class="field-group">
       <label for="parent-name">Parent / Guardian Name <span class="req">*</span></label>
       <input type="text" id="parent-name" placeholder="First and Last Name" required>
     </div>
-
     <div class="field-group">
       <label for="special-instructions">Special Instructions / Medical Notes</label>
       <textarea id="special-instructions" placeholder="Allergies, medications, dietary needs, or any other notes..."></textarea>
     </div>
-
     <div class="section-label">Emergency Contact</div>
-
     <div class="field-group">
       <label for="ec-name">Contact Name <span class="req">*</span></label>
       <input type="text" id="ec-name" placeholder="Full Name" required>
     </div>
-
     <div class="field-group">
       <label for="ec-phone">Contact Phone <span class="req">*</span></label>
       <input type="tel" id="ec-phone" placeholder="(000) 000-0000" required>
     </div>
-
     <div class="section-label">Parent / Guardian Signature <span class="req" style="font-size:0.9rem">*</span></div>
-
-    <div class="sig-wrap" id="sig-wrap">
+    <div class="sig-wrap">
       <canvas id="sig-canvas"></canvas>
-      <div class="sig-placeholder" id="sig-placeholder">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5">
-          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
-        </svg>
-        Sign here with your finger
-      </div>
+      <div class="sig-placeholder" id="sig-placeholder">Sign here with your finger</div>
       <div class="sig-baseline"></div>
       <div class="sig-actions">
         <button type="button" class="btn-clear" id="btn-clear">Clear</button>
       </div>
     </div>
-
     <div class="field-group" style="margin-top:18px;">
       <label for="sign-date">Date <span class="req">*</span></label>
       <input type="text" id="sign-date" readonly>
     </div>
-
     <button type="submit" class="submit-btn" id="submit-btn">Submit Permission Slip</button>
-
     <div class="status success" id="status-success">
-      ✅ Permission slip submitted successfully!<br>
-      <span style="font-weight:400;font-size:0.88rem">Thank you! We look forward to seeing your child at the event.</span>
+      Submitted successfully! Thank you. We look forward to seeing your child at the event.
     </div>
     <div class="status error" id="status-error">
-      ⚠️ Submission failed. Please try again or contact your youth leader.
+      Submission failed. Please try again or contact your youth leader.
     </div>
-
   </form>
 </div>
 
-<footer>
-  Troy Assembly of God Youth Group &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d697c7a6472717264726869757a6f72686d5d7a707c7471337e7270">[email&#160;protected]</a>
-</footer>
+<footer>Troy Assembly of God Youth Group &nbsp;&middot;&nbsp; tagyoloyouthgroup@gmail.com</footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── Populate page from EVENT config ──────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('hdr-event').textContent = EVENT.name + ' Permission Form';
-  document.getElementById('deadline-banner').innerHTML =
-    `Please sign and return this form on or before <strong>${EVENT.deadline}</strong>`;
+<script>
+// ================================================================
+// CONFIGURE YOUR EVENT HERE
+// Change these values before each event — everything updates auto.
+// ================================================================
+var E_NAME     = "Lock In 2026";
+var E_DATE     = "Friday, April 10 - Saturday, April 11, 2026";
+var E_SHORT    = "April 10-11, 2026";
+var E_LOCATION = "Troy Assembly of God";
+var E_COST     = "FREE";
+var E_START    = "10:00 PM (April 10th)";
+var E_END      = "1:00 AM (April 11th)";
+var E_DEADLINE = "Wednesday, April 8, 2026";
+var E_PARENTS  = true;
+var E_DEP_FROM = "";
+var E_DEP_TIME = "";
+var E_RETURN   = "";
+var E_TRANSP   = "";
+var E_NEEDS    = "";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpTMkinek8EAYbBS9D0dukUW2AwrCFvAE90dWckUkSnE5ZfExY9nh1NXxfccF4mG7O/exec";
+// ================================================================
 
-  const rows = [];
-  rows.push(['Date', EVENT.date_display]);
-  rows.push(['Location', EVENT.location]);
-  if (EVENT.cost) rows.push(['Cost', EVENT.cost]);
-  if (EVENT.start_time) rows.push(['Start Time', EVENT.start_time]);
-  if (EVENT.end_time) rows.push(['End / Return Time', EVENT.end_time]);
-  if (EVENT.departure_from) rows.push(['Departing From', EVENT.departure_from]);
-  if (EVENT.departure_time) rows.push(['Departure Time', EVENT.departure_time]);
-  if (EVENT.return_to) rows.push(['Returning To', EVENT.return_to]);
-  if (EVENT.transport) rows.push(['Transport', EVENT.transport]);
-  if (EVENT.child_needs) rows.push(['Child Will Need', EVENT.child_needs]);
-  if (EVENT.parents_welcome) rows.push(['Note', 'Parents/Guardians are welcome to join!']);
+document.getElementById('hdr-event').textContent = E_NAME + ' Permission Form';
+document.getElementById('deadline-banner').innerHTML = 'Please sign and return this form on or before <strong>' + E_DEADLINE + '</strong>';
 
-  const container = document.getElementById('info-rows');
-  rows.forEach(([label, value]) => {
-    container.innerHTML += `
-      <div class="info-row">
-        <span class="info-label">${label}:</span>
-        <span class="info-value">${value}</span>
-      </div>`;
-  });
+var rows = [['Date', E_DATE], ['Location', E_LOCATION]];
+if (E_COST)     rows.push(['Cost', E_COST]);
+if (E_START)    rows.push(['Start Time', E_START]);
+if (E_END)      rows.push(['End Time', E_END]);
+if (E_DEP_FROM) rows.push(['Departing From', E_DEP_FROM]);
+if (E_DEP_TIME) rows.push(['Departure Time', E_DEP_TIME]);
+if (E_RETURN)   rows.push(['Returning To', E_RETURN]);
+if (E_TRANSP)   rows.push(['Transport', E_TRANSP]);
+if (E_NEEDS)    rows.push(['Child Will Need', E_NEEDS]);
+if (E_PARENTS)  rows.push(['Note', 'Parents/Guardians are welcome to join!']);
 
-  document.getElementById('permission-statement').innerHTML =
-    `<strong>Child's Name</strong> _________________________ has my permission to attend the 
-    <strong>${EVENT.name}</strong> on <strong>${EVENT.date_short}</strong>.
-    By signing below, I acknowledge the event details and grant permission for my child to participate.`;
-
-  // Auto-fill today's date
-  const today = new Date();
-  document.getElementById('sign-date').value =
-    today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+var container = document.getElementById('info-rows');
+rows.forEach(function(r) {
+  var d = document.createElement('div');
+  d.className = 'info-row';
+  d.innerHTML = '<span class="info-label">' + r[0] + ':</span><span class="info-value">' + r[1] + '</span>';
+  container.appendChild(d);
 });
 
+document.getElementById('permission-statement').innerHTML =
+  '<strong>Child\'s Name</strong> _________________________ has my permission to attend <strong>' +
+  E_NAME + '</strong> on <strong>' + E_SHORT + '</strong>. By signing below, I grant permission for my child to participate.';
 
-// ── Signature Pad ─────────────────────────────────────────────────────────────
-const canvas = document.getElementById('sig-canvas');
-const ctx = canvas.getContext('2d');
-const placeholder = document.getElementById('sig-placeholder');
-let drawing = false, hasSig = false;
+var today = new Date();
+document.getElementById('sign-date').value = today.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
 
-function resizeCanvas() {
-  const rect = canvas.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
+// Signature pad
+var canvas = document.getElementById('sig-canvas');
+var ctx = canvas.getContext('2d');
+var ph = document.getElementById('sig-placeholder');
+var drawing = false, hasSig = false;
+
+function resize() {
+  var r = canvas.getBoundingClientRect();
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = r.width * dpr;
+  canvas.height = r.height * dpr;
   ctx.scale(dpr, dpr);
   ctx.strokeStyle = '#1a1a1a';
   ctx.lineWidth = 2.2;
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
 }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+resize();
+window.addEventListener('resize', resize);
 
-function getPos(e) {
-  const rect = canvas.getBoundingClientRect();
-  if (e.touches) {
-    return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
-  }
-  return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+function pos(e) {
+  var r = canvas.getBoundingClientRect();
+  return e.touches
+    ? {x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top}
+    : {x: e.clientX - r.left, y: e.clientY - r.top};
 }
 
-canvas.addEventListener('mousedown',  e => { drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
-canvas.addEventListener('mousemove',  e => { if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSig = true; placeholder.style.opacity = '0'; });
-canvas.addEventListener('mouseup',    () => { drawing = false; });
-canvas.addEventListener('mouseleave', () => { drawing = false; });
+canvas.addEventListener('mousedown', function(e) { drawing=true; var p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); });
+canvas.addEventListener('mousemove', function(e) { if(!drawing) return; var p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); hasSig=true; ph.style.opacity='0'; });
+canvas.addEventListener('mouseup', function() { drawing=false; });
+canvas.addEventListener('mouseleave', function() { drawing=false; });
+canvas.addEventListener('touchstart', function(e) { e.preventDefault(); drawing=true; var p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); }, {passive:false});
+canvas.addEventListener('touchmove', function(e) { e.preventDefault(); if(!drawing) return; var p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); hasSig=true; ph.style.opacity='0'; }, {passive:false});
+canvas.addEventListener('touchend', function() { drawing=false; });
 
-canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
-canvas.addEventListener('touchmove',  e => { e.preventDefault(); if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSig = true; placeholder.style.opacity = '0'; }, { passive: false });
-canvas.addEventListener('touchend',   () => { drawing = false; });
-
-document.getElementById('btn-clear').addEventListener('click', () => {
+document.getElementById('btn-clear').addEventListener('click', function() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   hasSig = false;
-  placeholder.style.opacity = '1';
+  ph.style.opacity = '1';
 });
 
-
-// ── Form Submission ──────────────────────────────────────────────────────────
-document.getElementById('perm-form').addEventListener('submit', async function(e) {
+// Submit
+document.getElementById('perm-form').addEventListener('submit', function(e) {
   e.preventDefault();
+  var cn = document.getElementById('child-name').value.trim();
+  var pn = document.getElementById('parent-name').value.trim();
+  var en = document.getElementById('ec-name').value.trim();
+  var ep = document.getElementById('ec-phone').value.trim();
+  if (!cn || !pn || !en || !ep) { alert('Please fill in all required fields.'); return; }
+  if (!hasSig) { alert('Please provide a parent/guardian signature.'); return; }
 
-  // Validate required fields
-  const childName  = document.getElementById('child-name').value.trim();
-  const parentName = document.getElementById('parent-name').value.trim();
-  const ecName     = document.getElementById('ec-name').value.trim();
-  const ecPhone    = document.getElementById('ec-phone').value.trim();
-
-  if (!childName || !parentName || !ecName || !ecPhone) {
-    alert('Please fill in all required fields.');
-    return;
-  }
-  if (!hasSig) {
-    alert('Please provide a parent/guardian signature.');
-    return;
-  }
-  if (EVENT.script_url === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-    alert('⚙️ Setup needed: Please add your Google Apps Script URL to the EVENT config at the top of this file. See the SETUP GUIDE document for instructions.');
-    return;
-  }
-
-  const btn = document.getElementById('submit-btn');
+  var btn = document.getElementById('submit-btn');
   btn.disabled = true;
-  btn.textContent = 'Submitting…';
+  btn.textContent = 'Submitting...';
 
-  const signatureData = canvas.toDataURL('image/png');
-
-  const payload = {
-    eventName:     EVENT.name,
-    eventDate:     EVENT.date_short,
-    childName,
-    parentName,
+  var payload = {
+    eventName: E_NAME, eventDate: E_SHORT,
+    childName: cn, parentName: pn,
     specialInstructions: document.getElementById('special-instructions').value.trim(),
-    ecName,
-    ecPhone,
-    signatureData,
-    submitDate:    document.getElementById('sign-date').value
+    ecName: en, ecPhone: ep,
+    signatureData: canvas.toDataURL('image/png'),
+    submitDate: document.getElementById('sign-date').value
   };
 
-  try {
-    await fetch(EVENT.script_url, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+  fetch(SCRIPT_URL, {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)})
+    .then(function() {
+      document.getElementById('status-success').style.display = 'block';
+      btn.textContent = 'Submitted!';
+      document.querySelectorAll('input,textarea').forEach(function(f){f.disabled=true;});
+      canvas.style.pointerEvents = 'none';
+      document.getElementById('btn-clear').disabled = true;
+    })
+    .catch(function() {
+      document.getElementById('status-error').style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Submit Permission Slip';
     });
-
-    document.getElementById('status-success').style.display = 'block';
-    document.getElementById('status-error').style.display = 'none';
-    btn.textContent = '✓ Submitted';
-    this.querySelectorAll('input, textarea, canvas').forEach(el => el.disabled = true);
-    document.getE
+});
+</script>
+</body>
+</html>
